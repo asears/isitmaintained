@@ -1,0 +1,13 @@
+# uv venv
+.venv/
+
+# Coverage reports
+coverage.xml
+htmlcov/
+.coverage
+.coverage.*
+
+# Python cache
+__pycache__/
+*.pyc
+.ruff_cache/

@@ -1,0 +1,3 @@
+MD034: false  # Ignore bare URLs
+MD013:
+  line_length: 180  # Adjust line length to 180

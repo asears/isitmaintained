@@ -1,0 +1,170 @@
+[project]
+name = "isitmaintained"
+dynamic = ["version"]
+description = "A package to check if a project is maintained."
+authors = [
+    { name="Andrew Sears", email="asears@noreply.github.com" }
+]
+requires-python = ">=3.13"
+
+dependencies = [
+    "click",
+    "beautifulsoup4",
+    "pyyaml",
+    "openpyxl",
+    "et-xmlfile",
+    "pandas",
+    "colorama",
+    "numpy",
+    "python-dateutil",
+    "pytz",
+    "six",
+    "tzdata",
+]
+
+[project.optional-dependencies]
+# cli = ["rich"]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+    "pytest-xdist",
+    "ruff",
+    "uv",
+    "interrogate",
+    "nox",
+    # "pyproject-fmt",
+    "mypy",
+    "pandas-stubs",
+    "types-PyYAML",
+]
+
+[project.scripts]
+isitmaintained = "isitmaintained.main:cli"
+
+[tool.pytest.ini_options]
+addopts = "--cov=isitmaintained --cov-report=term-missing --cov-report=xml --dist=loadscope --numprocesses=auto"
+markers = [
+    "integration: mark a test as an integration test."
+]
+
+[tool.ruff]
+preview=true
+output-format="grouped"
+line-length = 120
+
+[tool.ruff.lint]
+# ruff linter
+#    F Pyflakes
+#  E/W pycodestyle
+#  C90 mccabe
+#    I isort
+#    N pep8-naming
+#    D pydocstyle
+#   UP pyupgrade
+#  YTT flake8-2020
+#  ANN flake8-annotations
+# ASYNC flake8-async
+#    S flake8-bandit
+#  BLE flake8-blind-except
+#  FBT flake8-boolean-trap
+#    B flake8-bugbear
+#    A flake8-builtins
+#  COM flake8-commas
+#  CPY flake8-copyright
+#   C4 flake8-comprehensions
+#  DTZ flake8-datetimez
+#  T10 flake8-debugger
+#   DJ flake8-django
+#   EM flake8-errmsg
+#  EXE flake8-executable
+#   FA flake8-future-annotations
+#  ISC flake8-implicit-str-concat
+#  ICN flake8-import-conventions
+#  LOG flake8-logging
+#    G flake8-logging-format
+#  INP flake8-no-pep420
+#  PIE flake8-pie
+#  T20 flake8-print
+#  PYI flake8-pyi
+#   PT flake8-pytest-style
+#    Q flake8-quotes
+#  RSE flake8-raise
+#  RET flake8-return
+#  SLF flake8-self
+# SLOT flake8-slots
+#  SIM flake8-simplify
+#  TID flake8-tidy-imports
+#  TCH flake8-type-checking
+#  INT flake8-gettext
+#  ARG flake8-unused-arguments
+#  PTH flake8-use-pathlib
+#   TD flake8-todos
+#  FIX flake8-fixme
+#  ERA eradicate
+#   PD pandas-vet
+#  PGH pygrep-hooks
+#   PL Pylint
+#  TRY tryceratops
+#  FLY flynt
+#  NPY NumPy-specific rules
+# FAST FastAPI
+#  AIR Airflow
+# PERF Perflint
+# FURB refurb
+#  DOC pydoclint
+#  RUF Ruff-specific rules
+select = ["F", "E", "W", "C90", "I", "N", "D", "UP", "YTT", "ANN", "ASYNC", "S", "BLE", "FBT", "B", "A", "COM", "CPY", "C4", "DTZ", "T10", "DJ", "EM", "EXE", "FA", "ISC", "ICN", "LOG", "G", "INP", "PIE", "T20", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SLOT", "SIM", "TID", "TCH", "INT", "ARG", "PTH", "TD", "FIX", "ERA", "PD", "PGH", "PL", "TRY", "FLY", "NPY", "FAST", "AIR", "PERF", "FURB", "DOC", "RUF", "TCH"]
+ignore = ["FURB", "CPY", "D203", "D213", "COM812", "ISC001", "PD901"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "ANN", "S101", "PT011", "ARG001"]
+"tests/integration/*" = ["INP001"]
+
+[tool.interrogate]
+exclude = ["tests"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_unreachable = true
+# enable_error_code = [ "ignore-without-code", "redundant-expr", "truthy-bool" ]
+# mypy_path = [ ".github" ]
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disable_error_code = ["no-untyped-def"]
+
+# Nox doesn't seem to autodiscover these pyproject.toml settings yet
+# [tool.nox]
+# options.default_venv_backend = "uv|virtualenv"
+# sessions = ["lint", "test"]
+
+# # Tool.markdownlint doesn't seem to autodiscover these pyproject.toml settings in vscode yet
+# [tool.markdownlint]
+# default = true
+# no-hard-tabs = false
+# whitespace = false
+# MD033 = false
+# MD034 = false
+
+# MD013.line_length = 200
+
+# [tool.markdownlint.MD003]
+# style = "atx"
+
+# [tool.markdownlint.MD007]
+# indent = 4
+
+# Tested pyproject-fmt and received rust panic error
+# [tool.pyproject-fmt]
+# max_supported_python = "3.13"
+# column_width = 120
+# indent = 2
+# # if false will remove unnecessary trailing ``.0``'s from version specifiers
+# keep_full_version = false
+
+
+# [[tool.mypy.overrides]]
+# module = [ "isitmaintained.*" ]
+# ignore_missing_imports = true

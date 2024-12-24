@@ -1,0 +1,2 @@
+DEFAULT:
+  source_excel: ./inputs/Pytest-Plugins_2024.xlsx
