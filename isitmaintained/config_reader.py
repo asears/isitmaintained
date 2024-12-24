@@ -5,7 +5,10 @@ from typing import Any
 
 import yaml
 
+from isitmaintained.logging_utils import logit
 
+
+@logit
 def get_config(config_path: str = "config.yml", config_profile: str = "DEFAULT") -> dict[str, Any]:
     """Retrieve the configuration from the given configuration file.
 

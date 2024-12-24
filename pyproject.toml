@@ -49,6 +49,7 @@ dev = [
     # "opentelemetry-instrumentation-asyncio",
     # "opentelemetry-instrumentation-threading",
     # "opentelemetry-instrumentation-urllib",
+    # "opentelemetry-exporter-richconsole",
     "psutil",
 ]
 
@@ -186,7 +187,7 @@ lint.select = [
     "RUF",
     # "TCH",  # this throws a warning with Even Better TOML plugin
 ]
-lint.ignore = ["FURB", "CPY", "D203", "D213", "COM812", "ISC001", "PD901", "D413"]
+lint.ignore = ["FURB", "CPY", "D203", "D213", "COM812", "ISC001", "PD901", "D413", "FBT001"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["D", "ANN", "S101", "PT011", "ARG001"]

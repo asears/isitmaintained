@@ -28,7 +28,7 @@ def setup_logging() -> trace.Tracer:
     return tracer
 
 
-def logit(func: Callable, tracer: trace.Tracer) -> Callable:
+def logit(func: Callable, tracer: trace.Tracer = None) -> Callable:
     """Add logging to a function.
 
     Args:
@@ -45,6 +45,8 @@ def logit(func: Callable, tracer: trace.Tracer) -> Callable:
         >>> my_function(5)
         10
     """
+    if tracer is None:
+        tracer = trace.get_tracer(__name__)
 
     @wraps(func)
     def wrapper(*args: tuple, **kwargs: dict) -> Callable:

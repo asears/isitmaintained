@@ -57,3 +57,31 @@ def get_package_health(url: str) -> float:
     _ = process.crawl(spider)
     process.start()
     return spider.health_score
+
+
+def scrape_table_from_url(url: str) -> str:
+    """Scrape the first table from the given URL.
+
+    Args:
+        url (str): The URL of the page to scrape.
+
+    Returns:
+        str: The HTML content of the first table found on the page, or an empty string if no table is found.
+    """
+    process = CrawlerProcess(settings={"LOG_LEVEL": "ERROR"})
+    table_html = []
+
+    class TableSpider(scrapy.Spider):
+        name = "table_spider"
+        start_urls: ClassVar[list] = [url]
+
+        @staticmethod
+        def parse(response: Response) -> None:
+            soup = BeautifulSoup(response.body, "html.parser")
+            table = soup.find("table")
+            if table:
+                table_html.append(str(table))
+
+    process.crawl(TableSpider)
+    process.start()
+    return table_html[0] if table_html else ""

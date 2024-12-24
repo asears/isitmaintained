@@ -7,6 +7,7 @@ from typing import Any
 import pandas as pd
 
 from isitmaintained.config_reader import get_config
+from isitmaintained.logging_utils import logit
 
 
 @dataclass
@@ -16,6 +17,7 @@ class ExcelData:
     data: list[dict[Hashable, Any]]
 
 
+@logit
 def load_excel_data(config_path: str = "config.yml") -> ExcelData:
     """Load data from the first sheet of the Excel file specified in the configuration.
 
@@ -34,6 +36,7 @@ def load_excel_data(config_path: str = "config.yml") -> ExcelData:
     return ExcelData(data=data)
 
 
+@logit
 def write_excel_data_to_csv(excel_data: ExcelData, csv_path: str) -> None:
     """Write the loaded Excel data to a CSV file.
 

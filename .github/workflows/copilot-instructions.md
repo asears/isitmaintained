@@ -4,6 +4,8 @@ A project for scraping the python maintainability scores out of web scanners
 
 Prefer double quotes in code.
 
+Use Pathlib rather than os.
+
 ## Docstrings
 
 Use google-style docstrings.

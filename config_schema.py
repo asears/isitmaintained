@@ -1,4 +1,5 @@
 """Config schema."""
+
 from typing import Any
 
 CONFIG_SCHEMA: dict[str, Any] = {
