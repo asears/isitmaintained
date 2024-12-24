@@ -1,7 +1,7 @@
 import pytest
 from click.testing import CliRunner
 
-from isitmaintained.main import main
+from isitmaintained.__main__ import main
 
 
 @pytest.fixture

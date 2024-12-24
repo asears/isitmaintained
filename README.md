@@ -1,6 +1,8 @@
 # IsItMaintained
 
-Scrape various sources using a spreadsheet and determine if a dependency is maintained.
+Scrape various sources using a spreadsheet as an input list of dependencies.
+
+Determine if a dependency is maintained.
 
 (NOT FOR PRODUCTION USE, NOT MAINTAINED)
 
@@ -22,6 +24,14 @@ I'm using Windows locally so this could be Windows-centric.
 Windows Python developers have a challenge for some Python packages, since some are developed with a Mac/Linux-centric focus.
 
 The user elevation system in Windows causes some issues with testing public packages and using temporary folder fixtures.
+
+## uv, virtualenv, Copilot and self-signed certificates
+
+There may be issues with virtualenv, uv, and Copilot behind firewalls and security software.
+
+- Don't use virtualenv, use uv instead
+- uv python install might be blocked, `--no-python-downloads` or `UV_PYTHON_DOWNLOADS` might help.
+- There are some experimental settings with Copilot which can be set to avoid certificate issues.
 
 ## VSCode
 
@@ -149,6 +159,8 @@ I encountered a bug similar to this with ruff.
 
 https://github.com/astral-sh/ruff/issues/6335
 
+https://github.com/astral-sh/ruff-vscode
+
 ## Linting
 
 `ruff check .`
@@ -181,6 +193,35 @@ https://bluesock.org/~willkg/blog/dev/switch_pyenv_to_uv.html
 uv tool install PACKAGE
 uv tool install --with tox-uv tox
 ```
+
+## Web Scraping and Automation
+
+https://pythonbasics.org/pandas-web-scraping/
+
+https://github.com/scrapy/scrapy
+
+https://playwright.dev/
+
+https://github.com/scrapy-plugins/scrapy-playwright
+
+## Logging
+
+https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation
+
+## Items to Review
+
+- using __main__ convention to allow python -m isitmaintained to run.
+Need to check updated pattern for __main__ convention.
+- various plugins for pytest
+- various plugins for opentelemetry
+- pandas pivottablejs, qgrid
+- Jupyter debugging in vscode
+- copilot-debug in terminal and vscode
+- Additional copilot extensions and experimental features
+
+## Pandas
+
+https://github.com/pandas-dev/pandas/blob/main/pandas/plotting/__init__.py
 
 ## Resources
 

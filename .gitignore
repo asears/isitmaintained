@@ -11,3 +11,15 @@ htmlcov/
 __pycache__/
 *.pyc
 .ruff_cache/
+
+# Temp Office Files
+~$*.xlsx
+~$*.xlsm
+~$*.xlsb
+~$*.xls
+~$*.docx
+~$*.docm
+~$*.doc
+~$*.pptx
+~$*.pptm
+~$*.ppt

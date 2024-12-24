@@ -1,2 +1,5 @@
 DEFAULT:
-  source_excel: ./inputs/Pytest-Plugins_2024.xlsx
+  input_dir: ./inputs
+  source_excel: ./Pytest-Plugins_2024.xlsx
+  output_dir: ./outputs
+  output_csv: pytest_plugins.csv

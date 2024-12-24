@@ -6,7 +6,7 @@ from typing import Any
 
 import pandas as pd
 
-from isitmaintained.config_reader import get_excel_filename
+from isitmaintained.config_reader import get_config
 
 
 @dataclass
@@ -26,8 +26,10 @@ def load_excel_data(config_path: str = "config.yml") -> ExcelData:
         ExcelData: A data class containing the loaded data.
 
     """
-    excel_filename = get_excel_filename(config_path)
-    df = pd.read_excel(excel_filename, sheet_name=0)
+    input_folder = get_config(config_path)["input_dir"]
+    input_filename = get_config(config_path)["source_excel"]
+    full_path = f"{input_folder}/{input_filename}"
+    df = pd.read_excel(full_path, sheet_name=0)
     data = df.to_dict(orient="records")
     return ExcelData(data=data)
 

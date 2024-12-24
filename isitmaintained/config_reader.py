@@ -1,38 +1,42 @@
 """Config reader."""
 
 from pathlib import Path
+from typing import Any
 
 import yaml
 
 
-def get_excel_filename(config_path: str = "config.yml") -> str:
-    """Retrieve the Excel filename from the given configuration file.
+def get_config(config_path: str = "config.yml", config_profile: str = "DEFAULT") -> dict[str, Any]:
+    """Retrieve the configuration from the given configuration file.
 
     Args:
         config_path (str): The path to the configuration file. Defaults to 'config.yml'.
+        config_profile (str): The configuration profile to retrieve. Defaults to 'DEFAULT'.
 
     Returns:
-        str: The Excel filename specified in the configuration file.
+        dict: The configuration dictionary.
 
     Raises:
-        ValueError: If 'ExcelFilename' is not found in the configuration file.
-        TypeError: If the 'DEFAULT' section is not a dictionary.
-
+        ValueError: If the configuration is not found or invalid.
+        TypeError: If the configuration is not a dictionary.
     """
+    required_keys = ["input_dir", "source_excel", "output_dir", "output_csv"]
     error_msg: str = ""
-    with Path.open(config_path, encoding="utf-8") as file:
+
+    with Path.open(config_path) as file:
         config = yaml.safe_load(file)
         if config is None:
-            error_msg = "source_excel not found in the configuration file"
+            error_msg = "Configuration not found in the configuration file"
             raise ValueError(error_msg)
 
-    if "DEFAULT" not in config:
-        error_msg = "DEFAULT section not found in the configuration file"
+    if config_profile not in config:
+        error_msg = f"{config_profile} section not found in the configuration file"
         raise ValueError(error_msg)
-    if not isinstance(config["DEFAULT"], dict):
-        error_msg = "DEFAULT section is not a dictionary"
+    if not isinstance(config[config_profile], dict):
+        error_msg = f"{config_profile} section is not a dictionary"
         raise TypeError(error_msg)
-    if "source_excel" not in config["DEFAULT"]:
-        error_msg = "ExcelFilename not found in the configuration file"
-        raise ValueError(error_msg)
-    return str(config["DEFAULT"]["source_excel"])
+    for key in required_keys:
+        if key not in config[config_profile]:
+            error_msg = f"{key} not found in the configuration file"
+            raise ValueError(error_msg)
+    return config[config_profile]

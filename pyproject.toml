@@ -2,9 +2,7 @@
 name = "isitmaintained"
 dynamic = ["version"]
 description = "A package to check if a project is maintained."
-authors = [
-    { name="Andrew Sears", email="asears@noreply.github.com" }
-]
+authors = [{ name = "Andrew Sears", email = "asears@noreply.github.com" }]
 requires-python = ">=3.13"
 
 dependencies = [
@@ -20,6 +18,10 @@ dependencies = [
     "pytz",
     "six",
     "tzdata",
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "opentelemetry-instrumentation-click",
+    "opentelemetry-instrumentation-system-metrics",
 ]
 
 [project.optional-dependencies]
@@ -37,6 +39,17 @@ dev = [
     "mypy",
     "pandas-stubs",
     "types-PyYAML",
+    "scrapy",
+    "lxml",
+    "html5lib",
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "opentelemetry-instrumentation-click",
+    "opentelemetry-instrumentation-system-metrics",
+    # "opentelemetry-instrumentation-asyncio",
+    # "opentelemetry-instrumentation-threading",
+    # "opentelemetry-instrumentation-urllib",
+    "psutil",
 ]
 
 [project.scripts]
@@ -44,16 +57,13 @@ isitmaintained = "isitmaintained.main:cli"
 
 [tool.pytest.ini_options]
 addopts = "--cov=isitmaintained --cov-report=term-missing --cov-report=xml --dist=loadscope --numprocesses=auto"
-markers = [
-    "integration: mark a test as an integration test."
-]
+markers = ["integration: mark a test as an integration test."]
 
 [tool.ruff]
-preview=true
-output-format="grouped"
+preview = true
+output-format = "grouped"
 line-length = 120
 
-[tool.ruff.lint]
 # ruff linter
 #    F Pyflakes
 #  E/W pycodestyle
@@ -114,12 +124,73 @@ line-length = 120
 # FURB refurb
 #  DOC pydoclint
 #  RUF Ruff-specific rules
-select = ["F", "E", "W", "C90", "I", "N", "D", "UP", "YTT", "ANN", "ASYNC", "S", "BLE", "FBT", "B", "A", "COM", "CPY", "C4", "DTZ", "T10", "DJ", "EM", "EXE", "FA", "ISC", "ICN", "LOG", "G", "INP", "PIE", "T20", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SLOT", "SIM", "TID", "TCH", "INT", "ARG", "PTH", "TD", "FIX", "ERA", "PD", "PGH", "PL", "TRY", "FLY", "NPY", "FAST", "AIR", "PERF", "FURB", "DOC", "RUF", "TCH"]
-ignore = ["FURB", "CPY", "D203", "D213", "COM812", "ISC001", "PD901"]
+lint.select = [
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "D",
+    "UP",
+    "YTT",
+    "ANN",
+    "ASYNC",
+    "S",
+    "BLE",
+    "FBT",
+    "B",
+    "A",
+    "COM",
+    "CPY",
+    "C4",
+    "DTZ",
+    "T10",
+    "DJ",
+    "EM",
+    "EXE",
+    "FA",
+    "ISC",
+    "ICN",
+    "LOG",
+    "G",
+    "INP",
+    "PIE",
+    "T20",
+    "PYI",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SLOT",
+    "SIM",
+    "TID",
+    "INT",
+    "ARG",
+    "PTH",
+    "TD",
+    "FIX",
+    "ERA",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "FLY",
+    "NPY",
+    "FAST",
+    "AIR",
+    "PERF",
+    "FURB",
+    "DOC",
+    "RUF",
+    # "TCH",  # this throws a warning with Even Better TOML plugin
+]
+lint.ignore = ["FURB", "CPY", "D203", "D213", "COM812", "ISC001", "PD901", "D413"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["D", "ANN", "S101", "PT011", "ARG001"]
-"tests/integration/*" = ["INP001"]
+"tests/integration/*" = ["INP001", "PLC2701"]
 
 [tool.interrogate]
 exclude = ["tests"]
